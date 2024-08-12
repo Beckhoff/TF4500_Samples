@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MainASR" Id="{a3036160-8964-49d6-8aaa-6c2ae4a063d9}" SpecialFunc="None">
+    <Declaration><![CDATA[// TwinCAT Speech ASR with parameters
+// Start Listening via bListenTrigger and say "Set value to.." or "Increment/Decrement value by .."
+// The numbers are configured as parameters in SRGS via a referenced SRGS grammar file
+PROGRAM MainASR
+VAR
+nValue	: INT := 0;
+
+// ASR Trigger Variables
+bListenTrigger     	: BOOL 	:= FALSE;
+bListenStopTrigger 	: BOOL 	:= FALSE;
+
+// ASR Command Configuration
+nConfigIdASR    : UINT 	:= 100;
+
+// ASR Variables
+fbASR 				: FB_SpeechRecognition	:= (nConfigurationId := nConfigIdASR);
+bListen			    : BOOL 					:= FALSE;
+nLastRecoId        	: ULINT 				:= 0;
+sLastRecognition	: STRING(4096) 			:= '';
+fConfidenceThreshold: REAL 					:= 0.7; // TcSpeech will inform PLC if recognition confidence is larger than this threshold
+sSubStringValue		: STRING				:= '';
+
+END_VAR
+	]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Trigger Start/Stop Listening
+IF bListenTrigger THEN
+	bListenTrigger:=FALSE;
+	bListen := TRUE;
+END_IF
+
+IF bListen THEN
+	IF bListenStopTrigger THEN
+		fbASR(bListen := FALSE,nConfigurationId:= nConfigIdASR);
+	ELSE
+		fbASR(bListen := TRUE,nConfigurationId:= nConfigIdASR);
+	END_IF
+	
+	IF NOT fbASR.bBusy THEN
+		fbASR(bListen:= FALSE,nConfigurationId:= nConfigIdASR);
+		blisten := FALSE;
+		bListenStopTrigger := FALSE;
+	END_IF
+END_IF
+
+IF nLastRecoId <> fbASR.nRecognitionId THEN
+	nLastRecoId := fbASR.nRecognitionId;
+	// Check if Recognition Confidence is high enough
+	IF fbAsr.fRecognitionConfidence > fConfidenceThreshold THEN
+	  	// Check RecoTag for contains 'SetValue' OR 'IncrementValue' OR 'DecrementValue' & extract value from tag
+	  
+	  	IF FIND(fbASR.sRecognitionTag, 'SetValue') > 0 THEN
+		  	sSubStringValue := RIGHT(fbASR.sRecognitionTag, LEN(fbASR.sRecognitionTag) - FIND(fbASR.sRecognitionTag, '='));
+			nValue := STRING_TO_INT(sSubStringValue);
+		ELSIF FIND(fbASR.sRecognitionTag, 'IncrementValue') > 0 THEN
+			sSubStringValue := RIGHT(fbASR.sRecognitionTag, LEN(fbASR.sRecognitionTag) - FIND(fbASR.sRecognitionTag, '='));
+			nValue := nValue + STRING_TO_INT(sSubStringValue);
+		ELSIF FIND(fbASR.sRecognitionTag, 'DecrementValue') > 0 THEN
+			sSubStringValue := RIGHT(fbASR.sRecognitionTag, LEN(fbASR.sRecognitionTag) - FIND(fbASR.sRecognitionTag, '='));
+			nValue := nValue - STRING_TO_INT(sSubStringValue);
+	  	END_IF
+	END_IF
+END_IF
+
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

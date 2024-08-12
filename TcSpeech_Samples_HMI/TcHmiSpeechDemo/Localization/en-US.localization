@@ -1,0 +1,29 @@
+{
+  "locale": "en-US",
+  "localizedText": {
+    "RED": "Page Red",
+    "BLUE": "Page Blue",
+    "YELLOW": "Yellow",
+    "Motor_Heading": "Motor Configuration",
+    "MOTORSPEED": "Motor Speed",
+    "LIGHT_HEADING": "Light Control",
+    "LIGHTS_OFF": "Lights off",
+    "LIGHTS_ON": "Lights on",
+    "AVAILABLE_COMMANDS": "Active commands:",
+    "COMMAND_INCREASE": "\"Increase motor speed.\"",
+    "COMMAND_DECREASE": "\"Decrease motor speed.\"",
+    "COMMAND_ON": "\"Turn the lights on.\"",
+    "COMMAND_OFF": "\"Turn the lights off.\"",
+    "COMMAND_PAGEMOTOR": "\"Open motor configurations.\"",
+    "COMMAND_PAGELIGHT": "\"Open light control.\"",
+    "COMMAND_ISLIGHT": "\"Are the lights on?\"",
+    "COMMAND_MOTORSPEED": "\"How fast does the motor rotate?\"",
+    "TTSMotorSpeed": "The motor speed is",
+    "TTSLightsOn": "The lights are on.",
+    "TTSLightsOff": "The lights are off.",
+    "START_LISTENING": "Start Speech Recognition",
+    "NO_SPEECH_AVAILABLE": "No TwinCAT Speech Service available",
+    "COMMAND_LOCALIZATION": "\"Set language to German/English.\""
+  },
+  "$schema": "../.hmiframework/Schema/LocalizationDescription.Schema.json"
+}

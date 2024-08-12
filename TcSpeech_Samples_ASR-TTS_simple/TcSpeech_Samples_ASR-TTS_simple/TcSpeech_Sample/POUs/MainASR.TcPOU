@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.5">
+  <POU Name="MainASR" Id="{88779fb7-982b-4502-b0f9-45daa7696610}" SpecialFunc="None">
+    <Declaration><![CDATA[// Start Recognition can be triggered by setting bListen to true
+// "Hello TwinCAT" is configured to be recognized
+// If recognition is detected, variable bRecognition is set to true for 1 second
+PROGRAM MainASR
+VAR 
+// Start speech recognition by setting to true
+bListen			: BOOL 	:= FALSE;
+
+// If "Hello TwinCAT" is recognized bRecognition is set to true for 1 sec
+bRecognition	: BOOL;
+
+// ASR Configuration
+nConfigIdASR    : UINT 					:= 100;
+fbASR 			: FB_SpeechRecognition	:= (nConfigurationId := nConfigIdASR);
+
+// ASR Variables                               
+nLastRecoId    	: ULINT 				:= 0;
+
+timer	: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Set bListen to true, to start speech recognition
+fbASR(bListen := bListen, nConfigurationId:= nConfigIdASR);
+
+// If new recognition is available and recognition confidence is high enough (over 70%) set bRecognition to true
+IF nLastRecoId <> fbASR.nRecognitionId THEN
+	nLastRecoId := fbASR.nRecognitionId;
+	IF fbAsr.fRecognitionConfidence > 0.7 THEN
+	  bRecognition := TRUE;
+	END_IF
+END_IF
+
+
+// Keep bRecognition true for just a second
+IF bRecognition THEN
+	timer(IN := TRUE, PT := T#1S);
+	IF timer.Q THEN
+		timer(IN := FALSE);
+		bRecognition := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

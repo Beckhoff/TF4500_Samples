@@ -1,0 +1,499 @@
+<div id="page_motor" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="450" data-tchmi-height="450" data-tchmi-zindex="6">
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_4" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%Motor_Heading%/l%" data-tchmi-top="8" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="20" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="3">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_5" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%MOTORSPEED%/l%" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="114" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size-unit="px" data-tchmi-zindex="4">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiButton_1" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="38" data-tchmi-left-unit="px" data-tchmi-text="+" data-tchmi-top="240" data-tchmi-top-unit="px" data-tchmi-width="30" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="20" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size-unit="px" data-tchmi-zindex="3">
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 10
+                },
+                "compareOperator": "<",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": false,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% + 1"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "Function",
+                "active": true,
+                "fn": "TcHmi.Functions.Beckhoff.Increment",
+                "fnParams": [
+                  {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "symbolExpression": "%i%MotorSpeed%/i%"
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 10.0
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 1.0
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnCommand<INCREASE_MOTOR>",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 10
+                },
+                "compareOperator": "<",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": false,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% + 1"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "Function",
+                "active": true,
+                "fn": "TcHmi.Functions.Beckhoff.Increment",
+                "fnParams": [
+                  {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "symbolExpression": "%i%MotorSpeed%/i%"
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 10.0
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 1.0
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiButton_2" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="-" data-tchmi-top="240" data-tchmi-top-unit="px" data-tchmi-width="30" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="20" data-tchmi-text-font-weight="Bold" data-tchmi-text-font-size-unit="px" data-tchmi-zindex="3">
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 0
+                },
+                "compareOperator": ">",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": false,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% - 1"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "Function",
+                "active": true,
+                "fn": "TcHmi.Functions.Beckhoff.Decrement",
+                "fnParams": [
+                  {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "symbolExpression": "%i%MotorSpeed%/i%"
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 0.0
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 1.0
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnCommand<DECREASE_MOTOR>",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 0
+                },
+                "compareOperator": ">",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": false,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% - 1"
+                },
+                "asyncWait": true
+              },
+              {
+                "objectType": "Function",
+                "active": true,
+                "fn": "TcHmi.Functions.Beckhoff.Decrement",
+                "fnParams": [
+                  {
+                    "objectType": "Symbol",
+                    "valueType": "tchmi:general#/definitions/String",
+                    "symbolExpression": "%i%MotorSpeed%/i%"
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 0.0
+                  },
+                  {
+                    "objectType": "StaticValue",
+                    "valueType": "tchmi:general#/definitions/Number",
+                    "value": 1.0
+                  }
+                ],
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiLinearGauge" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiLinearGauge" data-tchmi-base-animation-time="1000" data-tchmi-height="96" data-tchmi-height-unit="px" data-tchmi-label-range="20" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-show-labels="True" data-tchmi-show-ticks="True" data-tchmi-show-value-text="True" data-tchmi-start-from-zero="True" data-tchmi-top="164" data-tchmi-top-unit="px" data-tchmi-width="360" data-tchmi-width-unit="px" data-tchmi-max-value="10" data-tchmi-step="0" data-tchmi-value="%i%MotorSpeed%/i%" data-tchmi-zindex="0" data-tchmi-editable="False">
+<script data-tchmi-target-attribute="data-tchmi-range" type="application/json">
+[
+  {
+    "color": {
+      "color": "rgba(0, 128, 0, 1)"
+    },
+    "start": 0.0,
+    "end": 7.0
+  },
+  {
+    "color": {
+      "color": "rgba(255, 165, 0, 1)"
+    },
+    "start": 7.0,
+    "end": 9.0
+  },
+  {
+    "color": {
+      "color": "rgba(255, 0, 0, 1)"
+    },
+    "start": 9.0,
+    "end": 10.0
+  }
+]
+</script>
+<script data-tchmi-target-attribute="data-tchmi-value-format" type="application/json">
+{
+  "objectType": "Function",
+  "fn": "GaugeValueFormatter",
+  "fnParams": []
+}
+</script>
+<script data-tchmi-target-attribute="data-tchmi-tick-definition" type="application/json">
+{
+  "mainTickRange": 20,
+  "subTickRange": 5
+}
+</script>
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "SpeechOnCommand<SAY_MOTORSPEED>",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// Every Symbol is available via async API\nTcHmi.Symbol.readEx2('%i%MotorSpeed%/i%', function (data) {\n    if (data.error === TcHmi.Errors.NONE) {\n \t\t// Localization is always available with the sync API\n \t\tvar textToSynthesis = TcHmi.Symbol.readEx('%l%TTSMotorSpeed%/l%');\n        new TcHmi.TcSpeech.SpeechSynthesis(\n    \t\ttextToSynthesis + ' ' + data.value,\n    \t\t{ priority: 15 }    \n\t\t).start(function (data) {\n    \t\tif (data.error !== TcHmi.Errors.NONE) {\n        \t\tTcHmi.Log.errorEx('speech synthesis not successfully', data);\n    \t\t};\n\t\t});\n \t\tctx.success();\n    } else {\n        TcHmi.Log.errorEx('Fetching variable not successfully', data);\n        ctx.error(data.error);\n    }\n});\n"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// Every Symbol is available via async API\nTcHmi.Symbol.readEx2('%i%MotorSpeed%/i%', function (data) {\n    if (data.error === TcHmi.Errors.NONE) {\n \t\t// Localization is always available with the sync API\n \t\tvar textToSynthesis = TcHmi.Symbol.readEx('%l%TTSMotorSpeed%/l%');\n        new TcHmi.TcSpeech.SpeechSynthesis(\n    \t\ttextToSynthesis + ' ' + data.value,\n    \t\t{ priority: 15 }    \n\t\t).start(function (data) {\n    \t\tif (data.error !== TcHmi.Errors.NONE) {\n        \t\tTcHmi.Log.errorEx('speech synthesis not successfully', data);\n    \t\t};\n\t\t});\n \t\tctx.success();\n    } else {\n        TcHmi.Log.errorEx('Fetching variable not successfully', data);\n        ctx.error(data.error);\n    }\n});\n"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_8" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%AVAILABLE_COMMANDS%/l%" data-tchmi-top="42" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_9" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="82" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%l%COMMAND_DECREASE%/l%" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_10" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%COMMAND_INCREASE%/l%" data-tchmi-top="62" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_11" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="122" data-tchmi-left-unit="px" data-tchmi-text="%i%MotorSpeed%/i%" data-tchmi-top="145" data-tchmi-top-unit="px" data-tchmi-width="55" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_19" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="102" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%l%COMMAND_MOTORSPEED%/l%" data-tchmi-zindex="1">
+
+</div>
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "SpeechOnCommand<INCREASE>",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 10
+                },
+                "compareOperator": "<",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% + 1"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnEvent<DECREASE>",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%MotorSpeed%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/INT8",
+                  "value": 0
+                },
+                "compareOperator": ">",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%i%MotorSpeed%/i%",
+                "value": {
+                  "objectType": "FunctionExpression",
+                  "functionExpression": "%i%MotorSpeed%/i% - 1"
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": []
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnEvent<GET_SPEED>",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [],
+        "injectContextObject": false,
+        "asyncWait": true,
+        "waitMode": "Synchronous"
+      }
+    ]
+  }
+]
+    </script>
+</div>

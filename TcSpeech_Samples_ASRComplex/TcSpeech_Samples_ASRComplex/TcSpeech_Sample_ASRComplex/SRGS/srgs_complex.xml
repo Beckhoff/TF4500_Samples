@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<grammar xml:lang="en-US" root="basicCmd" tag-format="semantics/1.0" version="1.0" xmlns="http://www.w3.org/2001/06/grammar">
+  <rule id="basicCmd" scope="public">
+    <ruleref uri="#EntryNode"/>
+  </rule>
+  <rule id="EntryNode">
+    <one-of>
+      <item>Set value to<ruleref uri="#Number"/><tag>out = "SetValue="+ rules.Number._value;</tag></item>
+	
+      <item>Increment value by<ruleref uri="#Number"/><tag>out = "IncrementValue="+ rules.Number._value;</tag></item>
+      <item>Decrement value by<ruleref uri="#Number"/><tag>out = "DecrementValue="+ rules.Number._value;</tag></item>
+    </one-of>
+  </rule>
+    
+  <rule id="Number">
+    <ruleref uri="en-US.grxml#Number"/>
+  </rule>
+</grammar>

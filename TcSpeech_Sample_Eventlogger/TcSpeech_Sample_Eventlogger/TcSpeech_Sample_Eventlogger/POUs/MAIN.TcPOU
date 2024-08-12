@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{ac9fc3ec-52d2-43ae-bd11-800e0e827732}" SpecialFunc="None">
+    <Declaration><![CDATA[// TwinCAT Speech Eventlogger Sample
+// Event-To-Speech: If "EventSpeechTestClass.TTSEvent" is detected by TcSpeech Service, it will be synthesised
+// Speech-To-Event: If "Hello TwinCAT" is recognized, the "EventSpeechTestClass.ASREvent" will be sent by TcSpeech (see LoggedEvents-Window)
+PROGRAM MAIN
+VAR
+	fbEvent 	: FB_TcEventLogger; 
+	bSendEvent	: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Event-To-Speech: Set bSendEvent to true, to send event and listen for output
+IF bSendEvent THEN 
+	fbEvent.SendMessageEx(TC_EVENTS.EventSpeechTestClass.TTSEvent, 0, 0, 0);
+	bSendEvent := FALSE; 
+END_IF
+
+// Speech-to-Event: 
+// Speech Recognition will be started automatically by TcSpeech Service, no more PLC code necessary]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

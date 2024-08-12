@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0dec84c6-da56-481e-af40-09353133bd20}</ProjectGuid>
+    <AssemblyName>Empty TwinCAT Controller Project1</AssemblyName>
+    <Name>Empty TwinCAT Controller Project1</Name>
+    <RootNamespace>Empty TwinCAT Controller Project1</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="TwinCAT Speech Configurator1.tcspeechcfg">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <tcHardwareCompile Include="TwinCAT Speech Configurator1\Devices\Devices.tcshwcfg">
+      <DependentUpon>TwinCAT Speech Configurator1.tcspeechcfg</DependentUpon>
+    </tcHardwareCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcASRCompile Include="TwinCAT Speech Configurator1\ASR\ASR.tcsasrcfg">
+      <DependentUpon>TwinCAT Speech Configurator1.tcspeechcfg</DependentUpon>
+    </tcASRCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcTTSCompile Include="TwinCAT Speech Configurator1\TTS\TTS.tcsttscfg">
+      <DependentUpon>TwinCAT Speech Configurator1.tcspeechcfg</DependentUpon>
+    </tcTTSCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcEventLoggerCompile Include="TwinCAT Speech Configurator1\EventLogger\EventLogger.tcseventcfg">
+      <DependentUpon>TwinCAT Speech Configurator1.tcspeechcfg</DependentUpon>
+    </tcEventLoggerCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <tcHMICompile Include="TwinCAT Speech Configurator1\HMI\HMI.tcshmicfg">
+      <DependentUpon>TwinCAT Speech Configurator1.tcspeechcfg</DependentUpon>
+    </tcHMICompile>
+  </ItemGroup>
+  <!-- This next bit is required unless the macro used to Import your targets is defined in an MSBuild toolset. -->
+  <ProjectExtensions>
+    <ProjectCapabilities>
+      <ProjectConfigurationsDeclaredAsItems />
+      <TcController />
+    </ProjectCapabilities>
+  </ProjectExtensions>
+</Project>

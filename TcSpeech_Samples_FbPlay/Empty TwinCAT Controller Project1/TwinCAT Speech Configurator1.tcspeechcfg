@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcSpeechConfiguratorProject Version="1.0.0.0">
+  <General_Configuration>
+    <TargetSystem>127.0.0.1.1.1 (Local)</TargetSystem>
+  </General_Configuration>
+  <CoreConfiguration Id="1337" Name="TcSpeech Configuration">
+    <General LogLevel="3" />
+    <MetaData Created="8/22/2024 4:01:10 PM" Version="1.0.0.0" />
+    <ServiceConfigurations>
+      <ServiceConfiguration ClassType="PlaybackDevice" Id="1000" Name="Default_Windows_Output_Device" Type="SimplePortAudioImpl" Active="true">
+        <Playback>
+          <Device Idx="-3" EndpointId="Default" Name="Default Windows Output Device" Volume="0.7" />
+        </Playback>
+      </ServiceConfiguration>
+      <ServiceConfiguration ClassType="TTSSapi" Id="1001" Name="TTS_Sapi_Service1" Type="SAPITTSImpl" Active="true">
+        <LanguageInfo DefaultLanguageId="1033">
+          <Language Id="1033" Language="English (United States)" Voice="Microsoft David Desktop" />
+          <Language Id="1031" Language="German (Germany)" Voice="Microsoft Hedda Desktop" />
+        </LanguageInfo>
+      </ServiceConfiguration>
+    </ServiceConfigurations>
+    <CommandConfigurations>
+      <CommandConfiguration ClassType="TTS_Cmd" Id="200" Name="TTSConfiguration1">
+        <Services>
+          <Service RefId="1001" Type="TTS" />
+          <Service RefId="1000" Type="Audio" />
+        </Services>
+      </CommandConfiguration>
+    </CommandConfigurations>
+  </CoreConfiguration>
+  <GrammarFiles />
+</TcSpeechConfiguratorProject>

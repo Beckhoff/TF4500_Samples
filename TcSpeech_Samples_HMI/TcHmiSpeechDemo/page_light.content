@@ -1,0 +1,235 @@
+<div id="page_light" data-tchmi-type="TcHmi.Controls.System.TcHmiContent" data-tchmi-top="0" data-tchmi-left="0" data-tchmi-width="450" data-tchmi-height="306">
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_7" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="26" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="8" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-size="20" data-tchmi-text-font-weight="Bold" data-tchmi-text="%l%LIGHT_HEADING%/l%">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiRectangle" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiRectangle" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="199" data-tchmi-top-unit="px" data-tchmi-width="210" data-tchmi-width-unit="px">
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// Every Symbol is available via async API\nTcHmi.Symbol.readEx2('%i%Lights%/i%', function (data) {\n    if (data.error === TcHmi.Errors.NONE) {\n \t\t// Localization is always available with the sync API\n \t\tvar textToSynthesis = data.value == true ? \n \t\t\tTcHmi.Symbol.readEx('%l%TTSLightsOn%/l%') : \n \t\t\tTcHmi.Symbol.readEx('%l%TTSLightsOff%/l%');\n        new TcHmi.TcSpeech.SpeechSynthesis(\n    \t\ttextToSynthesis,\n    \t\t{ priority: 15 }    \n\t\t).start(function (data) {\n    \t\tif (data.error !== TcHmi.Errors.NONE) {\n        \t\tTcHmi.Log.errorEx('speech synthesis not successfully', data);\n    \t\t};\n\t\t});\n \t\tctx.success();\n    } else {\n        TcHmi.Log.errorEx('Fetching variable not successfully', data);\n        ctx.error(data.error);\n    }\n});\n"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnCommand<SAY_LIGHTS>",
+    "actions": [
+      {
+        "objectType": "JavaScript",
+        "active": true,
+        "sourceLines": [
+          "// Every Symbol is available via async API\nTcHmi.Symbol.readEx2('%i%Lights%/i%', function (data) {\n    if (data.error === TcHmi.Errors.NONE) {\n \t\t// Localization is always available with the sync API\n \t\tvar textToSynthesis = data.value ? \n \t\t\tTcHmi.Symbol.readEx('%l%TTSLightsOn%/l%') : \n \t\t\tTcHmi.Symbol.readEx('%l%TTSLightsOff%/l%');\n        new TcHmi.TcSpeech.SpeechSynthesis(\n    \t\ttextToSynthesis,\n    \t\t{ priority: 15 }    \n\t\t).start(function (data) {\n    \t\tif (data.error !== TcHmi.Errors.NONE) {\n        \t\tTcHmi.Log.errorEx('speech synthesis not successfully', data);\n    \t\t};\n\t\t});\n \t\tctx.success();\n    } else {\n        TcHmi.Log.errorEx('Fetching variable not successfully', data);\n        ctx.error(data.error);\n    }\n});\n"
+        ],
+        "injectContextObject": true,
+        "asyncWait": true,
+        "waitMode": "Asynchronous"
+      }
+    ]
+  },
+  {
+    "event": "%i%Lights%/i%",
+    "actions": [
+      {
+        "objectType": "Condition",
+        "active": true,
+        "parts": [
+          {
+            "if": [
+              {
+                "compare1": {
+                  "objectType": "Symbol",
+                  "valueType": "tchmi:general#/definitions/String",
+                  "symbolExpression": "%i%Lights%/i%"
+                },
+                "compare2": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:general#/definitions/Boolean",
+                  "value": true
+                },
+                "compareOperator": "==",
+                "logic": null
+              }
+            ],
+            "then": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmi_Controls_Beckhoff_TcHmiRectangle::BackgroundColor%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": {
+                    "color": "rgba(253, 243, 0, 1)"
+                  }
+                },
+                "asyncWait": true
+              }
+            ]
+          },
+          {
+            "else": [
+              {
+                "objectType": "WriteToSymbol",
+                "active": true,
+                "symbolExpression": "%ctrl%TcHmi_Controls_Beckhoff_TcHmiRectangle::BackgroundColor%/ctrl%",
+                "value": {
+                  "objectType": "StaticValue",
+                  "valueType": "tchmi:framework#/definitions/Color",
+                  "value": null
+                },
+                "asyncWait": true
+              }
+            ]
+          }
+        ],
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiButton_5" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%LIGHTS_ON%/l%" data-tchmi-top="149" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "SpeechOnCommand<LIGHTS_ON>",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%Lights%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/Boolean",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%Lights%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/Boolean",
+          "value": true
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiButton_6" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiButton" data-tchmi-height="40" data-tchmi-height-unit="px" data-tchmi-left="118" data-tchmi-left-unit="px" data-tchmi-text="%l%LIGHTS_OFF%/l%" data-tchmi-top="149" data-tchmi-top-unit="px" data-tchmi-width="100" data-tchmi-width-unit="px" data-tchmi-word-wrap="True">
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "SpeechOnCommand<LIGHTS_OFF>",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%Lights%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/Boolean",
+          "value": false
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "%ctx%owner::Id|EventRegistrationMode=Resolve%/ctx%.onPressed",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%i%Lights%/i%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:general#/definitions/Boolean",
+          "value": false
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_12" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%AVAILABLE_COMMANDS%/l%" data-tchmi-top="42" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text-font-weight="Bold" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_13" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="82" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%l%COMMAND_OFF%/l%" data-tchmi-zindex="1">
+
+</div>
+
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_14" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-text="%l%COMMAND_ON%/l%" data-tchmi-top="62" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-zindex="1">
+
+</div>
+
+
+<script data-tchmi-target-attribute="data-tchmi-trigger" type="application/json">[
+  {
+    "event": "SpeechOnCommand<LIGHTS_ON>",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmi_Controls_Beckhoff_TcHmiRectangle::BackgroundColor%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/Color",
+          "value": {
+            "color": "rgba(253, 243, 0, 1)"
+          }
+        },
+        "asyncWait": true
+      }
+    ]
+  },
+  {
+    "event": "SpeechOnCommand<LIGHTS_OFF>",
+    "actions": [
+      {
+        "objectType": "WriteToSymbol",
+        "active": true,
+        "symbolExpression": "%ctrl%TcHmi_Controls_Beckhoff_TcHmiRectangle::BackgroundColor%/ctrl%",
+        "value": {
+          "objectType": "StaticValue",
+          "valueType": "tchmi:framework#/definitions/Color",
+          "value": null
+        },
+        "asyncWait": true
+      }
+    ]
+  }
+]</script>
+<div id="TcHmi_Controls_Beckhoff_TcHmiTextblock_18" data-tchmi-type="TcHmi.Controls.Beckhoff.TcHmiTextblock" data-tchmi-height="20" data-tchmi-height-unit="px" data-tchmi-left="8" data-tchmi-left-unit="px" data-tchmi-top="102" data-tchmi-top-unit="px" data-tchmi-width="434" data-tchmi-width-unit="px" data-tchmi-word-wrap="True" data-tchmi-text="%l%COMMAND_ISLIGHT%/l%" data-tchmi-zindex="1">
+
+</div>
+
+</div>

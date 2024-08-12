@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.8">
+  <POU Name="MAIN" Id="{82090203-05a4-48c3-bf00-4f3e86de235a}" SpecialFunc="None">
+    <Declaration><![CDATA[// TwinCAT Speech Sample for Speech Recognition and Text-To-Speech (simple)
+// This example shows only the most necessary code.
+// Start Recognition or Start Text-To-Speech can be triggered in respective PRGs
+// MainASR: PRG for Speech Recognition
+// MainTTS: PRG for Text-To-Speech
+PROGRAM MAIN
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[MainTTS();
+MainASR();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

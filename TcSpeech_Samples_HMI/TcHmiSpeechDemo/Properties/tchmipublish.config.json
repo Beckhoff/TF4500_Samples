@@ -1,0 +1,31 @@
+[
+  {
+    "serverExtensions": [],
+    "profileName": "localhost",
+    "publishMode": "TcHmi",
+    "targetDirectory": "",
+    "deleteAllFilesBeforePublish": false,
+    "deleteExtensionDataBeforePublish": false,
+    "alwaysPublishLocalServerConfiguration": true,
+    "temporaryPublishWithoutServerConfiguration": false,
+    "abortOnErrors": true,
+    "createPublishLog": false,
+    "salt": "1ae9f31fe59649b3a34767f06ec25c08",
+    "encryptedTcHmiServerPassword": "MPZ9NRPM0txFTRw8WqYDV52anlwu1rCufFCJ8ocUkUU=",
+    "tcHmiServerHost": "localhost",
+    "tcHmiServerPort": "1010",
+    "uploadTimeout": "60",
+    "connectionTimeout": "5",
+    "requestTimeout": "60",
+    "extensionStartupTimeout": "120",
+    "clientCertificateCN": "",
+    "tcHmiUseTLS": false,
+    "useClientCertificate": false,
+    "launchBrowserAfterPublish": true,
+    "createVirtualDirectoriesOnTargetSystem": false,
+    "tcHmiServerUserName": "__SystemAdministrator",
+    "tcHmiDestinationUrl": "http://localhost:1010",
+    "publishConfiguration": "remote",
+    "tcHmiIgnoreCertificateErrors": true
+  }
+]

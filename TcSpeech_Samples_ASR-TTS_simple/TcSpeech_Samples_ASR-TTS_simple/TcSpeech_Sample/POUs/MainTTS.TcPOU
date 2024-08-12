@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.8">
+  <POU Name="MainTTS" Id="{7c1bb9f3-3017-4788-aec3-09781f8c3e5c}" SpecialFunc="None">
+    <Declaration><![CDATA[// Text-To-Speech can be triggered by setting bSpeak to true
+// Configured languages are 1033 (English (United States), default) and 1031 (German) --> "nLanguageId" variable to switch
+PROGRAM MainTTS
+VAR
+// TTS Variables
+bSpeak			    : BOOL 			:= FALSE;
+{attribute 'TcEncoding':= 'UTF-8'}
+sText2Speech        : STRING(4095)  := '<speak>TcSpeech demo project is greeting you.</speak>';
+
+
+// TTS Configuration
+nConfigIdTTS	: UINT 				:= 200;
+nLanguageId     : UINT 				:= 1033;
+fbTTS 			: FB_TextToSpeech 	:= (nConfigurationId := nConfigIdTTS, nLanguageId := nLanguageId); 
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Set bSpeak to true, to start a speech synthesis
+IF bSpeak THEN 
+	fbTTS(sUtterance := sText2Speech, bSpeak := TRUE, nConfigurationId:= nConfigIdTTS);
+	
+	IF NOT fbTTS.bBusy THEN
+		fbTTS(sUtterance := sText2Speech,bSpeak := FALSE, nConfigurationId:= nConfigIdTTS);
+		bSpeak := FALSE;
+	END_IF
+END_IF
+
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

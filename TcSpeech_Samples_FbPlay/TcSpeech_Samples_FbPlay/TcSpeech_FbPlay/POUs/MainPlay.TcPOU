@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MainPlay" Id="{04b66018-994e-4397-b8c9-8be6590e2871}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MainPlay
+VAR
+	// fbPlay Variables
+	bPlay	: BOOL;
+	nConfigId	: UINT := 200;
+	sFilePath : STRING(4095) := 'C:\16bit_16khz_mono_SampleSound.wav';
+	fbPlay : FB_Play;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Set bPlay to true, to start playback of file
+IF bPlay THEN
+	fbPlay(bPlay := TRUE, sPath := sFilePath, nConfigurationId := nConfigId);
+	
+	IF NOT fbPlay.bBusy THEN
+		fbPlay(bPlay := FALSE, sPath := sFilePath, nConfigurationId := nConfigId);
+		bPlay := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

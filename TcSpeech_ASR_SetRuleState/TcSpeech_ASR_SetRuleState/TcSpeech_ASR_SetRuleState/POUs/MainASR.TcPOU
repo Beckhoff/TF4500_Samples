@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MainASR" Id="{3e7fe486-bb9a-4539-97fe-9775718530ff}" SpecialFunc="None">
+    <Declaration><![CDATA[// Start Recognition can be triggered by setting bListen to true
+// "Hello TwinCAT" is configured to be recognized
+// If recognition is detected, variable bRecognition is set to true for 1 second
+// With the fbSetRuleState it is possible to enable and disable single grammar rules
+// (!) By default all rules are disabled -> Enable "Hello TwinCAT"-rule by setting "bSetRuleState" and "bRuleActivate" to true
+PROGRAM MainASR
+VAR 
+// Start speech recognition by setting to true
+bListen			: BOOL 	:= FALSE;
+
+// Trigger fbSetRuleState to enable or disable "Hello TwinCAT"-Rule by setting to true
+bSetRuleState	: BOOL;
+// True: Enable Rule | False: Disable Rule
+bRuleActivate	: BOOL;
+
+// If "Hello TwinCAT" is recognized bRecognition is set to true for 1 sec
+bRecognition	: BOOL;
+
+// ASR Configuration
+nConfigIdASR    : UINT 					:= 100;
+fbASR 			: FB_SpeechRecognition	:= (nConfigurationId := nConfigIdASR);
+
+// ASR Variables                               
+nLastRecoId    	: ULINT 				:= 0;
+
+// SetRuleState
+fbSetRuleState	: FB_SetRuleState;
+sRule			: STRING := 'HELLO';
+
+// SetRuleState for initially disable RootRule on Engine-Startup
+fbSetRootRule	: FB_SetRuleState;
+bSetRootRule	: BOOL := TRUE;
+sRootRule		: STRING := 'basicCmd';
+
+timer	: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Set bListen to true, to start speech recognition
+fbASR(bListen := bListen, nConfigurationId:= nConfigIdASR);
+
+// Initially disable RootRule of grammar on Engine-Startup. 
+// This is necessary to be able to switch the individual rules separately.
+IF fbASR.eRecognitionEngineState = ETcsRecognitionEngineState.TCS_ENGINE_STARTED THEN
+	fbSetRootRule(bExecute := bSetRootRule, sGrammarRule := sRootRule, bGrammarActivate := bRuleActivate, sGrammarFile := '', nConfigurationId := nConfigIdASR);
+	IF fbSetRootRule.bBusy THEN
+		bSetRootRule := FALSE;
+	END_IF
+END_IF
+
+// Set bSetRuleState to true to enable or disable a grammar rule
+fbSetRuleState(bExecute := bSetRuleState, sGrammarRule := sRule, bGrammarActivate := bRuleActivate, sGrammarFile := '', nConfigurationId := nConfigIdASR);
+IF NOT fbSetRuleState.bBusy THEN
+	bSetRuleState := FALSE;
+END_IF
+
+// If new recognition is available and recognition confidence is high enough (over 70%) set bRecognition to true
+IF nLastRecoId <> fbASR.nRecognitionId THEN
+	nLastRecoId := fbASR.nRecognitionId;
+	IF fbAsr.fRecognitionConfidence > 0.7 THEN
+	  bRecognition := TRUE;
+	END_IF
+END_IF
+
+
+// Keep bRecognition true for just a second
+IF bRecognition THEN
+	timer(IN := TRUE, PT := T#1S);
+	IF timer.Q THEN
+		timer(IN := FALSE);
+		bRecognition := FALSE;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
